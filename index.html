@@ -12,7 +12,7 @@
       <button class="changeGameButton hidden" id="changeGameButton">Change Game</button>
     </section>
     <section class="app">
-      <div class="startView hidden" id="startView">
+      <div class="startView" id="startView">
         <div class="pickGameTitle">Which Game Do You Want To Play?
         </div>
         <div class="gameChoiceButtons">
@@ -20,36 +20,37 @@
           <button class="advancedGameChoiceButton" id="advancedGameButton">Advanced Game</button>
         </div>
       </div>
-      <div class="gameView" id="gameView">
+      <div class="gameView hidden" id="gameView">
         <div class="computerPlayerInfo">
-          <p>Player: Computer
-          <p>Wins: 0
+          <p>Player: Computer</p>
+          <p>Wins: <span id="computerScore">0</span></p>
         </div>
         <div class="startingMessage">
-          <p>Please pick to play:
+          <p>Please pick to play:</p>
         </div>
         <div class="playerChoices">
           <div class="playerChoice" id="choiceRock">
             <img src="images/rock500x500.png" alt="Rock" class="icon" />
-            <p>Rock
+            <p>Rock</p>
           </div>
           <div class="playerChoice" id="choicePaper">
             <img src="images/paper500x500.png" alt="Paper" class="icon" />
-            <p>Paper
+            <p>Paper</p>
           </div>
           <div class="playerChoice" id="choiceScissors">
             <img src="images/scissors500x500.png" alt="Scissors" class="icon" />
-            <p>Scissors
+            <p>Scissors</p>
           </div>
         </div>
         <div class="humanPlayerInfo">
-          <p>Player: Human
-          <p>Wins: 0
+          <p>Player: Human</p>
+          <p>Wins: <span id="humanScore">0</span></p>
         </div>
       </div>
     </section>
   </body>
-  <script type="text/javascript" src="main.js"></script>
+      <script type="text/javascript" src="game.js"></script>
   <script type="text/javascript" src="player.js"></script>
-  <script type="text/javascript" src="game.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+
 </html>

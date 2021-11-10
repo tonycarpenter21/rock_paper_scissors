@@ -1,5 +1,6 @@
-// var humanPlayer = new Player ('Human', '🤓');
-// var computerPlayer = new Player ('Computer', '🤖');
+var game = new Game(gameChoice);
+var humanPlayer = new Player ('Human', '🤓');
+var computerPlayer = new Player ('Computer', '🤖');
 var changeGameButton = document.getElementById('changeGameButton');
 var classicGameButton = document.getElementById('classicGameButton');
 var advancedGameButton = document.getElementById('advancedGameButton');
@@ -8,67 +9,116 @@ var gameView = document.getElementById('gameView');
 var choiceRock = document.getElementById('choiceRock');
 var choicePaper = document.getElementById('choicePaper');
 var choiceScissors = document.getElementById('choiceScissors');
+var humanScore = document.getElementById('humanScore');
+var computerScore = document.getElementById('computerScore');
 var gameChoice = 'classic'; //THIS IS TEMPORARY
 var choiceHumanPlayer;
 var choiceComputerPlayer;
 
-changeGameButton.addEventListener('click', changeGameStyle)
-classicGameButton.addEventListener('click', startClassicGame)
-advancedGameButton.addEventListener('click', startAdvancedGame)
-choiceRock.addEventListener('click', chooseRock)
-choicePaper.addEventListener('click', choosePaper)
-choiceScissors.addEventListener('click', chooseScissors)
+changeGameButton.addEventListener('click', changeGameStyle);
+classicGameButton.addEventListener('click', startClassicGame);
+advancedGameButton.addEventListener('click', startAdvancedGame);
+choiceRock.addEventListener('click', chooseRock);
+choicePaper.addEventListener('click', choosePaper);
+choiceScissors.addEventListener('click', chooseScissors);
 
 function chooseRock() {
   choiceHumanPlayer = 'rock';
+  game.numberOfGamesPlayed += 1;
   console.log("rock was choosen")
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic()
-    if (choiceComputerPlayer === choiceHumanPlayer) {
-      console.log("draw")
-    } else if (choiceComputerPlayer === 'paper') {
-      console.log("Human loses")
-    } else {
-      console.log('human wins')
-    }
+    chooseRockClassic()
   } else {
     computerPlayerChoosesAdvanced()
+    chooseRockAdvanced()
   }
+}
+
+function chooseRockClassic() {
+  if (choiceComputerPlayer === choiceHumanPlayer) {
+    console.log("draw")
+  } else if (choiceComputerPlayer === 'paper') {
+    console.log("Human loses")
+    computerPlayer.wins += 1;
+    computerScore.innerText = computerPlayer.wins
+  } else {
+    console.log('human wins')
+    humanPlayer.wins += 1;
+    humanScore.innerText = humanPlayer.wins
+  }
+}
+
+function chooseRockAdvanced() {
+
 }
 
 function choosePaper() {
   choiceHumanPlayer = 'paper';
+  game.numberOfGamesPlayed += 1;
   console.log("paper was choosen")
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic()
-    if (choiceComputerPlayer === choiceHumanPlayer) {
-      console.log("draw")
-    } else if (choiceComputerPlayer === 'scissors') {
-      console.log("Human loses")
-    } else {
-      console.log('human wins')
-    }
+    choosePaperClassic()
   } else {
     computerPlayerChoosesAdvanced()
+    choosePaperAdvanced()
   }
+}
+
+function choosePaperClassic() {
+  if (choiceComputerPlayer === choiceHumanPlayer) {
+    console.log("draw")
+  } else if (choiceComputerPlayer === 'scissors') {
+    console.log("Human loses")
+    computerPlayer.wins += 1;
+    computerScore.innerText = computerPlayer.wins
+  } else {
+    console.log('human wins')
+    humanPlayer.wins += 1;
+    humanScore.innerText = humanPlayer.wins
+  }
+}
+
+function choosePaperAdvanced() {
+
 }
 
 function chooseScissors() {
   choiceHumanPlayer = 'scissors';
+  game.numberOfGamesPlayed += 1;
   console.log("scissors was choosen")
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic()
-    if (choiceComputerPlayer === choiceHumanPlayer) {
-      console.log("draw")
-    } else if (choiceComputerPlayer === 'rock') {
-      console.log("Human loses")
-    } else {
-      console.log('human wins')
-    }
+    chooseScissorsClassic()
   } else {
     computerPlayerChoosesAdvanced()
+    chooseScissorsAdvanced()
   }
 }
+
+function chooseScissorsClassic() {
+  if (choiceComputerPlayer === choiceHumanPlayer) {
+    console.log("draw")
+  } else if (choiceComputerPlayer === 'rock') {
+    console.log("Human loses")
+    computerPlayer.wins += 1;
+    computerScore.innerText = computerPlayer.wins
+  } else {
+    console.log('human wins')
+    humanPlayer.wins += 1;
+    humanScore.innerText = humanPlayer.wins
+  }
+}
+
+function chooseScissorsAdvanced() {
+
+}
+
+
+// include game.numberOfGamesPlayed somewhere?
+
+
 
 function computerPlayerChoosesClassic() {
   var computerChoiceRandomizer = Math.random()
