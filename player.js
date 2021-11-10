@@ -15,5 +15,4 @@ class Player {
   }
 }
 
-
-var computerPlayer = new Player ('Computer', '🤖')
+// module.exports = Player;

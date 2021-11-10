@@ -9,10 +9,10 @@
     <section class="navBar">
       <div class="logo">Rock, Paper, Scissors!
       </div>
-      <button class="changeGame" id="changeGameButton">Change Game</button>
+      <button class="changeGameButton hidden" id="changeGameButton">Change Game</button>
     </section>
     <section class="app">
-      <div class="startView">
+      <div class="startView hidden" id="startView">
         <div class="pickGameTitle">Which Game Do You Want To Play?
         </div>
         <div class="gameChoiceButtons">
@@ -20,7 +20,32 @@
           <button class="advancedGameChoiceButton" id="advancedGameButton">Advanced Game</button>
         </div>
       </div>
-      <div class="gameView hidden"
+      <div class="gameView" id="gameView">
+        <div class="computerPlayerInfo">
+          <p>Player: Computer
+          <p>Wins: 0
+        </div>
+        <div class="startingMessage">
+          <p>Please pick to play:
+        </div>
+        <div class="playerChoices">
+          <div class="playerChoice" id="choiceRock">
+            <img src="images/rock500x500.png" alt="Rock" class="icon" />
+            <p>Rock
+          </div>
+          <div class="playerChoice" id="choicePaper">
+            <img src="images/paper500x500.png" alt="Paper" class="icon" />
+            <p>Paper
+          </div>
+          <div class="playerChoice" id="choiceScissors">
+            <img src="images/scissors500x500.png" alt="Scissors" class="icon" />
+            <p>Scissors
+          </div>
+        </div>
+        <div class="humanPlayerInfo">
+          <p>Player: Human
+          <p>Wins: 0
+        </div>
       </div>
     </section>
   </body>
