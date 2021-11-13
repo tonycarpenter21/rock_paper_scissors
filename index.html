@@ -3,12 +3,13 @@
   <head>
     <title>Let's Play: Rock, Paper, Scissors!</title>
     <link rel="stylesheet" href="./styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png"/>
   </head>
   <body>
     <section class="navBar">
-      <div class="logo">Rock, Paper, Scissors!
-      </div>
+      <section class="logo">Rock, Paper, Scissors!
+      </section>
       <div class="navButtons">
         <button class="changeGameButton hidden" id="changeGameButton">Change Game</button>
         <button class="howToButton" id="howToPlayButton">How To Play</button>
@@ -16,11 +17,16 @@
     </section>
     <section class="app">
       <section class="startView" id="startView">
-        <div class="pickGameTitle">Which Game Do You Want To Play?
-        </div>
+        <section class="pickGameTitle">Which Game Do You Want To Play?
+        </section>
         <div class="gameChoiceButtons">
           <button class="classicGameChoiceButton" id="classicGameButton">Classic Game</button>
           <button class="advancedGameChoiceButton" id="advancedGameButton">Advanced Game</button>
+
+
+
+
+
         </div>
       </section>
       <section class="helpView hidden" id="helpView">
@@ -62,46 +68,46 @@
             <p id="gameMessage">Please pick to play:</p>
           </div>
           <div class="playerChoices">
-            <div class="playerChoice" id="choiceRock">
-              <img src="images/rock500x500.png" alt="Rock" class="icon" />
+            <section class="playerChoice" id="choiceRock">
+              <img src="images/rock.png" alt="Rock" class="icon" />
               <p>Rock</p>
-            </div>
-            <div class="playerChoice" id="choicePaper">
-              <img src="images/paper500x500.png" alt="Paper" class="icon" />
+            </section>
+            <section class="playerChoice" id="choicePaper">
+              <img src="images/paper.png" alt="Paper" class="icon" />
               <p>Paper</p>
-            </div>
-            <div class="playerChoice" id="choiceScissors">
-              <img src="images/scissors500x500.png" alt="Scissors" class="icon" />
+            </section>
+            <section class="playerChoice" id="choiceScissors">
+              <img src="images/scissors.png" alt="Scissors" class="icon" />
               <p>Scissors</p>
-            </div>
-            <div class="playerChoice" id="choiceLizard">
-              <img src="images/lizardv2500x500.png" alt="Lizard" class="icon" />
+            </section>
+            <section class="playerChoice" id="choiceLizard">
+              <img src="images/lizard.png" alt="Lizard" class="icon" />
               <p>Lizard</p>
-            </div>
-            <div class="playerChoice" id="choiceSpock">
-              <img src="images/spock500x500.png" alt="Spock" class="icon" />
+            </section>
+            <section class="playerChoice" id="choiceSpock">
+              <img src="images/spock.png" alt="Spock" class="icon" />
               <p>Spock</p>
-            </div>
-            <div class="computerChoice" id="computerChoiceRock">
-              <img src="images/rock500x500.png" alt="Rock" class="icon" />
+            </section>
+            <section class="computerChoice" id="computerChoiceRock">
+              <img src="images/rock.png" alt="Rock" class="icon" />
               <p>Rock</p>
-            </div>
-            <div class="computerChoice" id="computerChoicePaper">
-              <img src="images/paper500x500.png" alt="Paper" class="icon" />
+            </section>
+            <section class="computerChoice" id="computerChoicePaper">
+              <img src="images/paper.png" alt="Paper" class="icon" />
               <p>Paper</p>
-            </div>
-            <div class="computerChoice" id="computerChoiceScissors">
-              <img src="images/scissors500x500.png" alt="Scissors" class="icon" />
+            </section>
+            <section class="computerChoice" id="computerChoiceScissors">
+              <img src="images/scissors.png" alt="Scissors" class="icon" />
               <p>Scissors</p>
-            </div>
-            <div class="computerChoice" id="computerChoiceLizard">
-              <img src="images/lizardv2500x500.png" alt="Lizard" class="icon" />
+            </section>
+            <section class="computerChoice" id="computerChoiceLizard">
+              <img src="images/lizard.png" alt="Lizard" class="icon" />
               <p>Lizard</p>
-            </div>
-            <div class="computerChoice" id="computerChoiceSpock">
-              <img src="images/spock500x500.png" alt="Spock" class="icon" />
+            </section>
+            <section class="computerChoice" id="computerChoiceSpock">
+              <img src="images/spock.png" alt="Spock" class="icon" />
               <p>Spock</p>
-            </div>
+            </section>
           </div>
         </div>
         <section class="humanPlayerInfo">
@@ -114,8 +120,7 @@
       </section>
     </section>
   </body>
-      <script type="text/javascript" src="player.js"></script>
+  <script type="text/javascript" src="player.js"></script>
   <script type="text/javascript" src="game.js"></script>
   <script type="text/javascript" src="main.js"></script>
-
 </html>

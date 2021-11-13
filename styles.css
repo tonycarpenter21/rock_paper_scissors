@@ -3,7 +3,6 @@ body {
   font-family: 'Kanit', sans-serif;
   height: 100vh;
   background-color: #004766;
-  /* grabbed 100-500 regular and itallic, remove unused on polish */
 }
 
 .navBar {
@@ -39,7 +38,22 @@ body {
   font-size: 20px;
   font-weight: 200;
   cursor: pointer;
+  user-select: none;
+  transition: 0.3s;
 }
+
+.howToButton:hover,
+.homeButton:hover,
+.changeGameButton:hover,
+.classicGameChoiceButton:hover,
+.advancedGameChoiceButton:hover,
+.playerChoice:hover {
+  filter: brightness(120%);
+}
+
+.currentPlayerChoice {
+  filter: brightness(120%)
+};
 
 .navButtons {
   display: flex;
@@ -151,13 +165,14 @@ ul, ol {
 
 .icon {
   height:90px;
+  pointer-events: none;
 }
 
 .computerPlayerInfo,
 .humanPlayerInfo {
   display: flex;
   justify-content: space-around;
-  background-color: #09bda5;
+  background-color: #09E2C5;
   border: 3px solid black;
   color: #000000;
   border-radius: 10px;

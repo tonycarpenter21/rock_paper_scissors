@@ -38,7 +38,6 @@ var computerChoiceScissors = document.getElementById('computerChoiceScissors');
 var computerChoiceLizard = document.getElementById('computerChoiceLizard');
 var computerChoiceSpock = document.getElementById('computerChoiceSpock');
 
-
 changeGameButton.addEventListener('click', changeGameStyle);
 howToPlayButton.addEventListener('click', showHowToPlay);
 homeButton.addEventListener('click', changeGameStyle);
@@ -50,11 +49,23 @@ choiceScissors.addEventListener('click', chooseScissors);
 choiceLizard.addEventListener('click', chooseLizard);
 choiceSpock.addEventListener('click', chooseSpock);
 
+
+// What's the best way to do this line below?
+document.addEventListener("DOMContentLoaded", pageLoad);
+
+function pageLoad() {
+  playerInfo();
+  console.log(humanPlayer)
+  humanPlayer = JSON.parse(window.localStorage.getItem('humanPlayer'));
+  console.log(humanPlayer)
+  computerPlayer = JSON.parse(window.localStorage.getItem('computerPlayer'));
+}
+
 function playerInfo() {
-  humanName.innerText = humanPlayer.name;
-  humanIcon.innerText = String.fromCodePoint(0x1F525);
-  computerName.innerText = computerPlayer.name;
-  computerIcon.innerText = `${computerPlayer.token}`;
+  replaceText(humanName,humanPlayer.name);
+  replaceText(humanIcon,humanPlayer.token);
+  replaceText(computerName,computerPlayer.name);
+  replaceText(computerIcon,computerPlayer.token);
 }
 
 function showHowToPlay() {
@@ -68,15 +79,13 @@ function changeGameStyle() {
 }
 
 function startClassicGame() {
-  playerInfo();
   gameChoice = "classic";
-  resetGame();
+  startNewGame();
 }
 
 function startAdvancedGame() {
-  playerInfo();
   gameChoice = "advanced";
-  resetGame();
+  startNewGame();
 }
 
 function computerPlayerChoosesClassic() {
@@ -113,11 +122,12 @@ function  computerPlayerChoosesAdvanced() {
   }
 }
 
-function resetGame() {
+function startNewGame() {
   hide([startView, helpView, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock, playerChoiceLizard, playerChoiceSpock]);
+  disableHoverGlow([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
   enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
   enableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  gameMessage.innerText = "Please pick to play:";
+  replaceText(gameMessage, "Please pick to play:");
   if (gameChoice === "classic") {
     show([gameView, changeGameButton, howToPlayButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors]);
   } else {
@@ -125,17 +135,24 @@ function resetGame() {
   }
 }
 
+function resetGame() {
+  startNewGame();
+  // window.localStorage.setItem('humanPlayer', JSON.stringify(humanPlayer));
+  // window.localStorage.setItem('computerPlayer', JSON.stringify(computerPlayer));
+}
+
 function startGame() {
   game.numberOfGamesPlayed += 1;
   disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
   disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
   updateTiesAndTotalGamesPlayed();
-  setTimeout(resetGame, 1000);
+  setTimeout(resetGame, 1500);
 }
 
 function chooseRock() {
   choiceHumanPlayer = 'rock';
+  enableHoverGlow(playerChoiceRock)
+  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
   startGame();
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic();
@@ -149,7 +166,7 @@ function chooseRock() {
 function chooseRockClassic() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoiceRock]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'paper') {
     show([computerChoicePaper]);
     computerWins();
@@ -162,7 +179,7 @@ function chooseRockClassic() {
 function chooseRockAdvanced() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoiceRock]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'paper') {
     show([computerChoicePaper]);
     computerWins();
@@ -180,6 +197,8 @@ function chooseRockAdvanced() {
 
 function choosePaper() {
   choiceHumanPlayer = 'paper';
+  enableHoverGlow(playerChoicePaper)
+  hide([playerChoiceRock, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
   startGame();
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic();
@@ -193,7 +212,7 @@ function choosePaper() {
 function choosePaperClassic() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoicePaper]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'scissors') {
     show([computerChoiceScissors]);
     computerWins();
@@ -206,7 +225,7 @@ function choosePaperClassic() {
 function choosePaperAdvanced() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoicePaper]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'scissors') {
     show([computerChoiceScissors]);
     computerWins();
@@ -224,6 +243,8 @@ function choosePaperAdvanced() {
 
 function chooseScissors() {
   choiceHumanPlayer = 'scissors';
+  enableHoverGlow(playerChoiceScissors)
+  hide([playerChoicePaper, playerChoiceRock, playerChoiceSpock, playerChoiceLizard]);
   startGame();
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic();
@@ -237,7 +258,7 @@ function chooseScissors() {
 function chooseScissorsClassic() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoiceScissors]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'rock') {
     show([computerChoiceRock]);
     computerWins();
@@ -250,7 +271,7 @@ function chooseScissorsClassic() {
 function chooseScissorsAdvanced() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoiceScissors]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'rock') {
     show([computerChoiceRock]);
     computerWins();
@@ -268,6 +289,8 @@ function chooseScissorsAdvanced() {
 
 function chooseLizard() {
   choiceHumanPlayer = 'lizard';
+  enableHoverGlow(playerChoiceLizard)
+  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceRock]);
   startGame();
   computerPlayerChoosesAdvanced();
   chooseLizardAdvanced();
@@ -276,7 +299,7 @@ function chooseLizard() {
 function chooseLizardAdvanced() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoiceLizard]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'rock') {
     show([computerChoiceRock]);
     computerWins();
@@ -294,6 +317,8 @@ function chooseLizardAdvanced() {
 
 function chooseSpock() {
   choiceHumanPlayer = 'spock';
+  enableHoverGlow(playerChoiceSpock)
+  hide([playerChoicePaper, playerChoiceScissors, playerChoiceRock, playerChoiceLizard]);
   startGame();
   computerPlayerChoosesAdvanced();
   chooseSpockAdvanced();
@@ -302,7 +327,7 @@ function chooseSpock() {
 function chooseSpockAdvanced() {
   if (choiceComputerPlayer === choiceHumanPlayer) {
     show([computerChoiceSpock]);
-    gameMessage.innerText = "It's a draw!";
+    replaceText(gameMessage, "It's a draw!");
   } else if (choiceComputerPlayer === 'rock') {
     show([computerChoiceRock]);
     humanWins();
@@ -320,23 +345,23 @@ function chooseSpockAdvanced() {
 
 function humanWins() {
   humanPlayer.wins += 1;
-  humanScore.innerText = humanPlayer.wins;
-  computerLosses.innerText = humanPlayer.wins;
-  gameMessage.innerText = "You won!";
+  replaceText(humanScore, humanPlayer.wins);
+  replaceText(computerLosses, humanPlayer.wins);
+  replaceText(gameMessage, "You won!");
 }
 
 function computerWins() {
   computerPlayer.wins += 1;
-  computerScore.innerText = computerPlayer.wins;
-  humanLosses.innerText = computerPlayer.wins;
-  gameMessage.innerText = "You lost!";
+  replaceText(computerScore, computerPlayer.wins);
+  replaceText(humanLosses, computerPlayer.wins);
+  replaceText(gameMessage, "You lost!");
 }
 
 function updateTiesAndTotalGamesPlayed() {
-  humanGamesPlayed.innerText = game.numberOfGamesPlayed;
-  computerGamesPlayed.innerText = game.numberOfGamesPlayed;
-  computerTies.innerText = game.numberOfGamesPlayed - humanPlayer.wins - computerPlayer.wins;
-  humanTies.innerText = game.numberOfGamesPlayed - humanPlayer.wins - computerPlayer.wins;
+  replaceText(humanGamesPlayed, game.numberOfGamesPlayed);
+  replaceText(computerGamesPlayed, game.numberOfGamesPlayed);
+  replaceText(computerTies, (game.numberOfGamesPlayed - humanPlayer.wins - computerPlayer.wins));
+  replaceText(humanTies, (game.numberOfGamesPlayed - humanPlayer.wins - computerPlayer.wins));
 }
 
 function show(elements) {
@@ -373,4 +398,18 @@ function enableShadows(elements) {
   for (var i = 0; i < elements.length; i++) {
     elements[i].classList.remove('disableShadow');
   }
+}
+
+function enableHoverGlow(element) {
+  element.classList.add('currentPlayerChoice');
+}
+
+function disableHoverGlow(elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('currentPlayerChoice');
+  }
+}
+
+function replaceText(element, input) {
+  element.innerText = input;
 }
