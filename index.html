@@ -21,31 +21,67 @@
         </div>
       </div>
       <div class="gameView hidden" id="gameView">
-        <div class="computerPlayerInfo">
-          <p>Player: Computer</p>
+        <section class="computerPlayerInfo">
+          <p>Player: <span id="computerName">Comptuer</span> <span id="computerIcon">Icon</span></p>
           <p>Wins: <span id="computerScore">0</span></p>
-        </div>
-        <div class="startingMessage">
-          <p>Please pick to play:</p>
-        </div>
-        <div class="playerChoices">
-          <div class="playerChoice" id="choiceRock">
-            <img src="images/rock500x500.png" alt="Rock" class="icon" />
-            <p>Rock</p>
+          <p>Ties: <span id="computerTies">0</span></p>
+          <p>Losses: <span id="computerLosses">0</span></p>
+          <p>Games Played: <span id="computerGamesPlayed">0</span></p>
+        </section>
+        <div class="resultsArea">
+          <div class="startingMessage">
+            <p id="gameMessage">Please pick to play:</p>
           </div>
-          <div class="playerChoice" id="choicePaper">
-            <img src="images/paper500x500.png" alt="Paper" class="icon" />
-            <p>Paper</p>
-          </div>
-          <div class="playerChoice" id="choiceScissors">
-            <img src="images/scissors500x500.png" alt="Scissors" class="icon" />
-            <p>Scissors</p>
+          <div class="playerChoices">
+            <div class="playerChoice" id="choiceRock">
+              <img src="images/rock500x500.png" alt="Rock" class="icon" />
+              <p>Rock</p>
+            </div>
+            <div class="playerChoice" id="choicePaper">
+              <img src="images/paper500x500.png" alt="Paper" class="icon" />
+              <p>Paper</p>
+            </div>
+            <div class="playerChoice" id="choiceScissors">
+              <img src="images/scissors500x500.png" alt="Scissors" class="icon" />
+              <p>Scissors</p>
+            </div>
+            <div class="playerChoice" id="choiceLizard">
+              <img src="images/lizardv2500x500.png" alt="Lizard" class="icon" />
+              <p>Lizard</p>
+            </div>
+            <div class="playerChoice" id="choiceSpock">
+              <img src="images/spock500x500.png" alt="Spock" class="icon" />
+              <p>Spock</p>
+            </div>
+            <div class="computerChoice" id="computerChoiceRock">
+              <img src="images/rock500x500.png" alt="Rock" class="icon" />
+              <p>Rock</p>
+            </div>
+            <div class="computerChoice" id="computerChoicePaper">
+              <img src="images/paper500x500.png" alt="Paper" class="icon" />
+              <p>Paper</p>
+            </div>
+            <div class="computerChoice" id="computerChoiceScissors">
+              <img src="images/scissors500x500.png" alt="Scissors" class="icon" />
+              <p>Scissors</p>
+            </div>
+            <div class="computerChoice" id="computerChoiceLizard">
+              <img src="images/lizardv2500x500.png" alt="Lizard" class="icon" />
+              <p>Lizard</p>
+            </div>
+            <div class="computerChoice" id="computerChoiceSpock">
+              <img src="images/spock500x500.png" alt="Spock" class="icon" />
+              <p>Spock</p>
+            </div>
           </div>
         </div>
-        <div class="humanPlayerInfo">
-          <p>Player: Human</p>
+        <section class="humanPlayerInfo">
+          <p>Player: <span id="humanName">Human</span> <span id="humanIcon">Icon</span></p>
           <p>Wins: <span id="humanScore">0</span></p>
-        </div>
+          <p>Ties: <span id="humanTies">0</span></p>
+          <p>Losses: <span id="humanLosses">0</span></p>
+          <p>Games Played: <span id="humanGamesPlayed">0</span></p>
+        </section>
       </div>
     </section>
   </body>
