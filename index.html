@@ -9,18 +9,42 @@
     <section class="navBar">
       <div class="logo">Rock, Paper, Scissors!
       </div>
-      <button class="changeGameButton hidden" id="changeGameButton">Change Game</button>
+      <div class="navButtons">
+        <button class="changeGameButton hidden" id="changeGameButton">Change Game</button>
+        <button class="howToButton" id="howToPlayButton">How To Play</button>
+      </div>
     </section>
     <section class="app">
-      <div class="startView" id="startView">
+      <section class="startView" id="startView">
         <div class="pickGameTitle">Which Game Do You Want To Play?
         </div>
         <div class="gameChoiceButtons">
           <button class="classicGameChoiceButton" id="classicGameButton">Classic Game</button>
           <button class="advancedGameChoiceButton" id="advancedGameButton">Advanced Game</button>
         </div>
-      </div>
-      <div class="gameView hidden" id="gameView">
+      </section>
+      <section class="helpView hidden" id="helpView">
+        <h2>How To Play:</h2>
+          <p>Welcome to Rock, Paper, Scissors! Start by selecting either "Classic Game" or "Advanced Game" on the home screen. Click a card you think will beat the computer's choice. If you're correct, you win!
+          <h2>Classic Game Rules:</h2>
+            <p>You will have the choice of three options and simply click your choice to play.
+            <ul>
+              <li>Rock beats Scissors</li>
+              <li>Paper beats Rock</li>
+              <li>Scissors beats Paper</li>
+            </ul>
+          <h2>Advanced Game Rules:</h2>
+            <p>You will have the choice of five options and simply click your choice to play.
+            <ul>
+              <li>Rock beats Scissors and Spock</li>
+              <li>Paper beats Rock and Spock</li>
+              <li>Scissors beats Paper and Lizard</li>
+              <li>Lizard beats Spock and Paper</li>
+              <li>Spock beats Scissors and Rock </li>
+            </ul>
+            <button class="homeButton" id="homeButton">Return Home</button>
+          </section>
+      <section class="gameView hidden" id="gameView">
         <section class="computerPlayerInfo">
           <p>Player: <span id="computerName">Comptuer</span> <span id="computerIcon">Icon</span></p>
           <p>Wins: <span id="computerScore">0</span></p>
@@ -82,7 +106,7 @@
           <p>Losses: <span id="humanLosses">0</span></p>
           <p>Games Played: <span id="humanGamesPlayed">0</span></p>
         </section>
-      </div>
+      </section>
     </section>
   </body>
       <script type="text/javascript" src="game.js"></script>
