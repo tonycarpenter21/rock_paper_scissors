@@ -72,13 +72,14 @@ body {
   box-shadow: 5px 5px 5px #00000088;
   color: #000000;
   padding: 50px;
-  margin: 50px;
+  margin: 30px;
   min-width: 88%;
-  min-height: 600px;
+  min-height: 675px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  border: 3px solid black;
 }
 
 .startView {
@@ -99,7 +100,7 @@ body {
   margin: 2px;
 }
 
-ul {
+ul, ol {
   margin: 0px;
 }
 
@@ -156,11 +157,13 @@ ul {
 .humanPlayerInfo {
   display: flex;
   justify-content: space-around;
-  background-color: #444444;
-  color: #FFFFFF;
+  background-color: #09bda5;
+  border: 3px solid black;
+  color: #000000;
   border-radius: 10px;
-  min-width: 800px;
+  min-width: 1200px;
   margin: 10px;
+  font-size: 20px;
 }
 
 .computerPlayerInfo p,
@@ -168,21 +171,23 @@ ul {
   margin: 30px;
 }
 
+.computerPlayerInfo,
 .computerChoice {
-  background-color: #FF0000;
+  background-color: #BBBBBB;
   cursor: default;
   box-shadow: none;
 }
 
 .resultsArea {
-  background-color: #BBBBBB;
+  background-color: #559BAA66;
+  border: 3px solid black;
   border-radius: 10px;
   margin: 20px 0px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  min-width: 800px;
+  min-width: 1200px;
 }
 
 .hidden {
@@ -192,5 +197,8 @@ ul {
 .disableButtons {
   cursor: default;
   pointer-events:none;
+}
+
+.disableShadow {
   box-shadow: none;
 }

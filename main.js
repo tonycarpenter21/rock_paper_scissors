@@ -1,6 +1,5 @@
 var game = new Game(gameChoice);
-var humanPlayer = new Player ('Human', '🤓');
-var computerPlayer = new Player ('Computer', '🤖');
+
 var changeGameButton = document.getElementById('changeGameButton');
 var howToPlayButton = document.getElementById('howToPlayButton')
 var homeButton = document.getElementById('homeButton');
@@ -55,7 +54,7 @@ function playerInfo() {
   humanName.innerText = humanPlayer.name;
   humanIcon.innerText = String.fromCodePoint(0x1F525);
   computerName.innerText = computerPlayer.name;
-  computerIcon.innerText = computerPlayer.token;
+  computerIcon.innerText = `${computerPlayer.token}`;
 }
 
 function showHowToPlay() {
@@ -66,23 +65,18 @@ function showHowToPlay() {
 function changeGameStyle() {
   hide([gameView, helpView, changeGameButton]);
   show([startView, howToPlayButton]);
-  enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  gameMessage.innerText = "Please pick to play:";
-  //move most of this to the class document under reset game^^^^
 }
 
 function startClassicGame() {
   playerInfo();
-  hide([startView, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock, playerChoiceLizard, playerChoiceSpock]);
-  show([gameView, changeGameButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors]);
   gameChoice = "classic";
+  resetGame();
 }
 
 function startAdvancedGame() {
   playerInfo();
-  hide([startView, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock]);
-  show([gameView, changeGameButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors, playerChoiceLizard, playerChoiceSpock]);
   gameChoice = "advanced";
+  resetGame();
 }
 
 function computerPlayerChoosesClassic() {
@@ -119,11 +113,30 @@ function  computerPlayerChoosesAdvanced() {
   }
 }
 
+function resetGame() {
+  hide([startView, helpView, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock, playerChoiceLizard, playerChoiceSpock]);
+  enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
+  enableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
+  gameMessage.innerText = "Please pick to play:";
+  if (gameChoice === "classic") {
+    show([gameView, changeGameButton, howToPlayButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors]);
+  } else {
+    show([gameView, changeGameButton, howToPlayButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors, playerChoiceLizard, playerChoiceSpock]);
+  }
+}
+
+function startGame() {
+  game.numberOfGamesPlayed += 1;
+  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
+  disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
+  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
+  updateTiesAndTotalGamesPlayed();
+  setTimeout(resetGame, 1000);
+}
+
 function chooseRock() {
   choiceHumanPlayer = 'rock';
-  game.numberOfGamesPlayed += 1;
-  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
+  startGame();
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic();
     chooseRockClassic();
@@ -131,7 +144,6 @@ function chooseRock() {
     computerPlayerChoosesAdvanced();
     chooseRockAdvanced();
   }
-  updateTiesAndTotalGamesPlayed();
 }
 
 function chooseRockClassic() {
@@ -168,9 +180,7 @@ function chooseRockAdvanced() {
 
 function choosePaper() {
   choiceHumanPlayer = 'paper';
-  game.numberOfGamesPlayed += 1;
-  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  hide([playerChoiceRock, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
+  startGame();
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic();
     choosePaperClassic();
@@ -178,7 +188,6 @@ function choosePaper() {
     computerPlayerChoosesAdvanced();
     choosePaperAdvanced();
   }
-  updateTiesAndTotalGamesPlayed();
 }
 
 function choosePaperClassic() {
@@ -215,9 +224,7 @@ function choosePaperAdvanced() {
 
 function chooseScissors() {
   choiceHumanPlayer = 'scissors';
-  game.numberOfGamesPlayed += 1;
-  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  hide([playerChoicePaper, playerChoiceRock, playerChoiceSpock, playerChoiceLizard]);
+  startGame();
   if (gameChoice === 'classic') {
     computerPlayerChoosesClassic();
     chooseScissorsClassic();
@@ -225,7 +232,6 @@ function chooseScissors() {
     computerPlayerChoosesAdvanced();
     chooseScissorsAdvanced();
   }
-  updateTiesAndTotalGamesPlayed();
 }
 
 function chooseScissorsClassic() {
@@ -262,12 +268,9 @@ function chooseScissorsAdvanced() {
 
 function chooseLizard() {
   choiceHumanPlayer = 'lizard';
-  game.numberOfGamesPlayed += 1;
-  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceRock]);
+  startGame();
   computerPlayerChoosesAdvanced();
   chooseLizardAdvanced();
-  updateTiesAndTotalGamesPlayed();
 }
 
 function chooseLizardAdvanced() {
@@ -291,12 +294,9 @@ function chooseLizardAdvanced() {
 
 function chooseSpock() {
   choiceHumanPlayer = 'spock';
-  game.numberOfGamesPlayed += 1;
-  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  hide([playerChoicePaper, playerChoiceScissors, playerChoiceRock, playerChoiceLizard]);
+  startGame();
   computerPlayerChoosesAdvanced();
   chooseSpockAdvanced();
-  updateTiesAndTotalGamesPlayed();
 }
 
 function chooseSpockAdvanced() {
@@ -360,5 +360,17 @@ function disablePlayerButtons(elements) {
 function enablePlayerButtons(elements) {
   for (var i = 0; i < elements.length; i++) {
     elements[i].classList.remove('disableButtons');
+  }
+}
+
+function disableShadows(elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].classList.add('disableShadow');
+  }
+}
+
+function enableShadows(elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('disableShadow');
   }
 }

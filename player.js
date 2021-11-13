@@ -14,3 +14,6 @@ class Player {
 
   }
 }
+
+
+// Player methods must include, but are not limited to what is above
