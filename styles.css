@@ -81,7 +81,7 @@ h1 {
   color: #000000;
   padding: 50px;
   margin: 30px;
-  min-width: calc(100% - 100px);
+  min-width: 97%;
   min-height: 675px;
   display: flex;
   justify-content: center;
@@ -161,7 +161,7 @@ h3 {
 .human-player-info {
   display: flex;
   justify-content: space-around;
-  background-color: #09E2C5;
+  background-color: #0BE3C6;
   border: 3px solid black;
   color: #000000;
   border-radius: 10px;
