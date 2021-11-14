@@ -1,4 +1,7 @@
 var game = new Game(gameChoice);
+var gameChoice;
+var choiceHumanPlayer;
+var choiceComputerPlayer;
 
 var changeGameButton = document.getElementById('changeGameButton');
 var howToPlayButton = document.getElementById('howToPlayButton')
@@ -23,9 +26,6 @@ var humanGamesPlayed = document.getElementById('humanGamesPlayed');
 var computerGamesPlayed = document.getElementById('computerGamesPlayed');
 var computerTies = document.getElementById('computerTies');
 var humanTies = document.getElementById('humanTies');
-var gameChoice;
-var choiceHumanPlayer;
-var choiceComputerPlayer;
 var gameMessage = document.getElementById('gameMessage');
 var playerChoiceRock = document.getElementById('choiceRock');
 var playerChoicePaper = document.getElementById('choicePaper');
@@ -37,10 +37,12 @@ var computerChoicePaper = document.getElementById('computerChoicePaper');
 var computerChoiceScissors = document.getElementById('computerChoiceScissors');
 var computerChoiceLizard = document.getElementById('computerChoiceLizard');
 var computerChoiceSpock = document.getElementById('computerChoiceSpock');
+var clearGameHistoryButton = document.getElementById('clearGameHistoryButton');
 
 changeGameButton.addEventListener('click', changeGameStyle);
 howToPlayButton.addEventListener('click', showHowToPlay);
 homeButton.addEventListener('click', changeGameStyle);
+clearGameHistoryButton.addEventListener('click', clearGameHistory);
 classicGameButton.addEventListener('click', startClassicGame);
 advancedGameButton.addEventListener('click', startAdvancedGame);
 choiceRock.addEventListener('click', chooseRock);
@@ -49,27 +51,34 @@ choiceScissors.addEventListener('click', chooseScissors);
 choiceLizard.addEventListener('click', chooseLizard);
 choiceSpock.addEventListener('click', chooseSpock);
 
-
 // What's the best way to do this line below?
 document.addEventListener("DOMContentLoaded", pageLoad);
 
+//if storage is null, it errors out on page load (specifically the computer player info).
 function pageLoad() {
-  playerInfo();
-  console.log(humanPlayer)
-  humanPlayer = JSON.parse(window.localStorage.getItem('humanPlayer'));
-  console.log(humanPlayer)
-  computerPlayer = JSON.parse(window.localStorage.getItem('computerPlayer'));
+  // if (localStorage.getItem('humanPlayer') && localStorage.getItem('computerPlayer') !== null)
+  //   humanPlayer = JSON.parse(window.localStorage.getItem('humanPlayer'));
+  //   computerPlayer = JSON.parse(window.localStorage.getItem('computerPlayer'));
+  //   game.numberOfGamesPlayed = JSON.parse(window.localStorage.getItem('numberOfGamesPlayed'));
+}
+
+function clearGameHistory(){
+  localStorage.clear();
+  humanPlayer.wins = 0
+  computerPlayer.wins = 0
+  game.numberOfGamesPlayed = 0
+  updateScores()
 }
 
 function playerInfo() {
-  replaceText(humanName,humanPlayer.name);
-  replaceText(humanIcon,humanPlayer.token);
-  replaceText(computerName,computerPlayer.name);
-  replaceText(computerIcon,computerPlayer.token);
+  replaceText(humanName, humanPlayer.name);
+  replaceText(humanIcon, humanPlayer.token);
+  replaceText(computerName, computerPlayer.name);
+  replaceText(computerIcon, computerPlayer.token);
 }
 
 function showHowToPlay() {
-  hide([gameView, startView, howToPlayButton])
+  hide([gameView, startView, howToPlayButton, changeGameButton])
   show([helpView])
 }
 
@@ -80,12 +89,12 @@ function changeGameStyle() {
 
 function startClassicGame() {
   gameChoice = "classic";
-  startNewGame();
+  setupNewGame();
 }
 
 function startAdvancedGame() {
   gameChoice = "advanced";
-  startNewGame();
+  setupNewGame();
 }
 
 function computerPlayerChoosesClassic() {
@@ -122,12 +131,14 @@ function  computerPlayerChoosesAdvanced() {
   }
 }
 
-function startNewGame() {
+function setupNewGame() {
+  playerInfo();
   hide([startView, helpView, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock, playerChoiceLizard, playerChoiceSpock]);
   disableHoverGlow([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
   enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
   enableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
   replaceText(gameMessage, "Please pick to play:");
+  updateScores();
   if (gameChoice === "classic") {
     show([gameView, changeGameButton, howToPlayButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors]);
   } else {
@@ -136,16 +147,16 @@ function startNewGame() {
 }
 
 function resetGame() {
-  startNewGame();
-  // window.localStorage.setItem('humanPlayer', JSON.stringify(humanPlayer));
-  // window.localStorage.setItem('computerPlayer', JSON.stringify(computerPlayer));
+  setupNewGame();
+  window.localStorage.setItem('humanPlayer', JSON.stringify(humanPlayer));
+  window.localStorage.setItem('computerPlayer', JSON.stringify(computerPlayer));
+  window.localStorage.setItem('numberOfGamesPlayed', JSON.stringify(game.numberOfGamesPlayed));
 }
 
 function startGame() {
   game.numberOfGamesPlayed += 1;
   disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
   disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  updateTiesAndTotalGamesPlayed();
   setTimeout(resetGame, 1500);
 }
 
@@ -345,23 +356,23 @@ function chooseSpockAdvanced() {
 
 function humanWins() {
   humanPlayer.wins += 1;
-  replaceText(humanScore, humanPlayer.wins);
-  replaceText(computerLosses, humanPlayer.wins);
   replaceText(gameMessage, "You won!");
 }
 
 function computerWins() {
   computerPlayer.wins += 1;
-  replaceText(computerScore, computerPlayer.wins);
-  replaceText(humanLosses, computerPlayer.wins);
   replaceText(gameMessage, "You lost!");
 }
 
-function updateTiesAndTotalGamesPlayed() {
+function updateScores() {
   replaceText(humanGamesPlayed, game.numberOfGamesPlayed);
   replaceText(computerGamesPlayed, game.numberOfGamesPlayed);
-  replaceText(computerTies, (game.numberOfGamesPlayed - humanPlayer.wins - computerPlayer.wins));
-  replaceText(humanTies, (game.numberOfGamesPlayed - humanPlayer.wins - computerPlayer.wins));
+  replaceText(computerTies, (game.numberOfGamesPlayed - (humanPlayer.wins + computerPlayer.wins)));
+  replaceText(humanTies, (game.numberOfGamesPlayed - (humanPlayer.wins + computerPlayer.wins)));
+  replaceText(computerScore, computerPlayer.wins);
+  replaceText(humanLosses, computerPlayer.wins);
+  replaceText(humanScore, humanPlayer.wins);
+  replaceText(computerLosses, humanPlayer.wins);
 }
 
 function show(elements) {
@@ -378,35 +389,35 @@ function hide(elements) {
 
 function disablePlayerButtons(elements) {
   for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.add('disableButtons');
+    elements[i].classList.add('disable-buttons');
   }
 }
 
 function enablePlayerButtons(elements) {
   for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.remove('disableButtons');
+    elements[i].classList.remove('disable-buttons');
   }
 }
 
 function disableShadows(elements) {
   for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.add('disableShadow');
+    elements[i].classList.add('disable-shadow');
   }
 }
 
 function enableShadows(elements) {
   for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.remove('disableShadow');
+    elements[i].classList.remove('disable-shadow');
   }
 }
 
 function enableHoverGlow(element) {
-  element.classList.add('currentPlayerChoice');
+  element.classList.add('current-player-choice');
 }
 
 function disableHoverGlow(elements) {
   for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.remove('currentPlayerChoice');
+    elements[i].classList.remove('current-player-choice');
   }
 }
 
