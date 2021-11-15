@@ -84,46 +84,13 @@ function startAdvancedGame() {
   setupNewGame();
 }
 
-function computerPlayerChoosesClassic() {
-  var computerChoiceRandomizer = Math.random();
-  if (computerChoiceRandomizer > .6666) {
-    choiceComputerPlayer = 'rock';
-    show([computerChoiceRock]);
-  } else if (computerChoiceRandomizer > .3333) {
-    choiceComputerPlayer = 'paper';
-    show([computerChoicePaper]);
-  } else {
-    choiceComputerPlayer = 'scissors';
-    show([computerChoiceScissors]);
-  }
-}
-
-function  computerPlayerChoosesAdvanced() {
-  var computerChoiceRandomizer = Math.random();
-  if (computerChoiceRandomizer > .8) {
-    choiceComputerPlayer = 'rock';
-    show([computerChoiceRock]);
-  } else if (computerChoiceRandomizer > .6) {
-    choiceComputerPlayer = 'paper';
-    show([computerChoicePaper]);
-  } else if (computerChoiceRandomizer > .4) {
-    choiceComputerPlayer = 'lizard';
-    show([computerChoiceLizard]);
-  } else if (computerChoiceRandomizer > .2) {
-    choiceComputerPlayer = 'spock';
-    show([computerChoiceSpock]);
-  } else {
-    choiceComputerPlayer = 'scissors';
-    show([computerChoiceScissors]);
-  }
-}
-
 function setupNewGame() {
   playerInfo();
   hide([startView, helpView, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock, playerChoiceLizard, playerChoiceSpock]);
   disableHoverGlow([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
   enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
   enableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
+  removeButtonGray([changeGameButton, howToPlayButton]);
   replaceText(gameMessage, "Please pick to play:");
   updateScores();
   if (gameChoice === "classic") {
@@ -145,7 +112,7 @@ function choosePaper() {
   choiceHumanPlayer = 'paper';
   enableHoverGlow(playerChoicePaper)
   hide([playerChoiceRock, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
-  startGame();
+  game.startGame();
   game.decideWinner();
 }
 
@@ -153,7 +120,7 @@ function chooseScissors() {
   choiceHumanPlayer = 'scissors';
   enableHoverGlow(playerChoiceScissors)
   hide([playerChoicePaper, playerChoiceRock, playerChoiceSpock, playerChoiceLizard]);
-  startGame();
+  game.startGame();
   game.decideWinner();
 }
 
@@ -161,7 +128,7 @@ function chooseLizard() {
   choiceHumanPlayer = 'lizard';
   enableHoverGlow(playerChoiceLizard)
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceRock]);
-  startGame();
+  game.startGame();
   game.decideWinner();
 }
 
@@ -169,8 +136,14 @@ function chooseSpock() {
   choiceHumanPlayer = 'spock';
   enableHoverGlow(playerChoiceSpock)
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceRock, playerChoiceLizard]);
-  startGame();
+  game.startGame();
   game.decideWinner();
+}
+
+function hideDisableAndRemoveShadows() {
+  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
+  disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
+  turnButtonGray([changeGameButton, howToPlayButton])
 }
 
 function humanWins() {
@@ -242,4 +215,16 @@ function disableHoverGlow(elements) {
 
 function replaceText(element, input) {
   element.innerText = input;
+}
+
+function turnButtonGray(elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].classList.add('gray-button');
+  }
+}
+
+function removeButtonGray(elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('gray-button');
+  }
 }
