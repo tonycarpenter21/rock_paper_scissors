@@ -1,4 +1,6 @@
 var game = new Game(gameChoice);
+
+//remove these somehow?
 var gameChoice;
 var choiceHumanPlayer;
 var choiceComputerPlayer;
@@ -42,7 +44,7 @@ var clearGameHistoryButton = document.getElementById('clearGameHistoryButton');
 changeGameButton.addEventListener('click', changeGameStyle);
 howToPlayButton.addEventListener('click', showHowToPlay);
 homeButton.addEventListener('click', changeGameStyle);
-clearGameHistoryButton.addEventListener('click', clearGameHistory);
+clearGameHistoryButton.addEventListener('click', game.clearGameHistory);
 classicGameButton.addEventListener('click', startClassicGame);
 advancedGameButton.addEventListener('click', startAdvancedGame);
 choiceRock.addEventListener('click', chooseRock);
@@ -51,24 +53,9 @@ choiceScissors.addEventListener('click', chooseScissors);
 choiceLizard.addEventListener('click', chooseLizard);
 choiceSpock.addEventListener('click', chooseSpock);
 
-// What's the best way to do this line below?
-document.addEventListener("DOMContentLoaded", pageLoad);
-
-//if storage is null, it errors out if both lines 60 AND 61 are running, otherwise works fine
-function pageLoad() {
-  if (localStorage.getItem('humanPlayer') !== null && localStorage.getItem('computerPlayer') !== null)
-    // humanPlayer = JSON.parse(window.localStorage.getItem('humanPlayer'));
-    computerPlayer = JSON.parse(window.localStorage.getItem('computerPlayer'));
-    game.numberOfGamesPlayed = JSON.parse(window.localStorage.getItem('numberOfGamesPlayed'));
-}
-
-function clearGameHistory(){
-  localStorage.clear();
-  humanPlayer.wins = 0
-  computerPlayer.wins = 0
-  game.numberOfGamesPlayed = 0
-  updateScores()
-}
+window.onload = function() {
+  pageLoad();
+};
 
 function playerInfo() {
   replaceText(humanName, humanPlayer.name);
@@ -146,67 +133,12 @@ function setupNewGame() {
   }
 }
 
-function resetGame() {
-  setupNewGame();
-  window.localStorage.setItem('humanPlayer', JSON.stringify(humanPlayer));
-  window.localStorage.setItem('computerPlayer', JSON.stringify(computerPlayer));
-  window.localStorage.setItem('numberOfGamesPlayed', JSON.stringify(game.numberOfGamesPlayed));
-}
-
-function startGame() {
-  game.numberOfGamesPlayed += 1;
-  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
-  disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  setTimeout(resetGame, 1500);
-  if (gameChoice === 'classic') {
-    computerPlayerChoosesClassic();
-  } else {
-    computerPlayerChoosesAdvanced();
-  }
-}
-
 function chooseRock() {
   choiceHumanPlayer = 'rock';
   enableHoverGlow(playerChoiceRock)
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
-  startGame();
-  decideWinner();
-}
-
-function decideWinner() {
-  if (choiceComputerPlayer === choiceHumanPlayer) {
-    replaceText(gameMessage, "It's a draw!");
-  } else if (choiceHumanPlayer === 'rock') {
-    if (choiceComputerPlayer === 'paper' || choiceComputerPlayer === 'spock') {
-      computerWins();
-    } else {
-      humanWins();
-    }
-  } else if (choiceHumanPlayer === 'paper') {
-    if (choiceComputerPlayer === 'scissors' || choiceComputerPlayer === 'lizard') {
-      computerWins();
-    } else {
-      humanWins();
-    }
-  } else if (choiceHumanPlayer === 'scissors') {
-    if (choiceComputerPlayer === 'rock' || choiceComputerPlayer === 'spock') {
-      computerWins();
-    } else {
-      humanWins();
-    }
-  } else if (choiceHumanPlayer === 'lizard') {
-    if (choiceComputerPlayer === 'scissors' || choiceComputerPlayer === 'rock') {
-        computerWins();
-    } else {
-      humanWins();
-    }
-  } else if (choiceHumanPlayer === 'spock') {
-    if (choiceComputerPlayer === 'paper' || choiceComputerPlayer === 'lizard') {
-        computerWins();
-    } else {
-      humanWins();
-    }
-  }
+  game.startGame();
+  game.decideWinner();
 }
 
 function choosePaper() {
@@ -214,7 +146,7 @@ function choosePaper() {
   enableHoverGlow(playerChoicePaper)
   hide([playerChoiceRock, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
   startGame();
-  decideWinner();
+  game.decideWinner();
 }
 
 function chooseScissors() {
@@ -222,7 +154,7 @@ function chooseScissors() {
   enableHoverGlow(playerChoiceScissors)
   hide([playerChoicePaper, playerChoiceRock, playerChoiceSpock, playerChoiceLizard]);
   startGame();
-  decideWinner();
+  game.decideWinner();
 }
 
 function chooseLizard() {
@@ -230,7 +162,7 @@ function chooseLizard() {
   enableHoverGlow(playerChoiceLizard)
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceRock]);
   startGame();
-  decideWinner();
+  game.decideWinner();
 }
 
 function chooseSpock() {
@@ -238,7 +170,7 @@ function chooseSpock() {
   enableHoverGlow(playerChoiceSpock)
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceRock, playerChoiceLizard]);
   startGame();
-  decideWinner();
+  game.decideWinner();
 }
 
 function humanWins() {
