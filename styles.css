@@ -206,3 +206,7 @@ h3 {
 .disable-shadow {
   box-shadow: none;
 }
+
+.gray-button {
+  background-color: #BBBBBB;
+}

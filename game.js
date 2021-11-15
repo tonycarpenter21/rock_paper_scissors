@@ -5,13 +5,44 @@ class Game {
   }
   startGame() {
     game.numberOfGamesPlayed += 1;
-    disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
-    disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
+    hideDisableAndRemoveShadows();
     setTimeout(game.resetGame, 1500);
     if (gameChoice === 'classic') {
-      computerPlayerChoosesClassic();
+      game.computerPlayerChoosesClassic();
     } else {
-      computerPlayerChoosesAdvanced();
+      game.computerPlayerChoosesAdvanced();
+    }
+  }
+  computerPlayerChoosesClassic() {
+    var computerChoiceRandomizer = Math.random();
+    if (computerChoiceRandomizer > .6666) {
+      choiceComputerPlayer = 'rock';
+      show([computerChoiceRock]);
+    } else if (computerChoiceRandomizer > .3333) {
+      choiceComputerPlayer = 'paper';
+      show([computerChoicePaper]);
+    } else {
+      choiceComputerPlayer = 'scissors';
+      show([computerChoiceScissors]);
+    }
+  }
+  computerPlayerChoosesAdvanced() {
+    var computerChoiceRandomizer = Math.random();
+    if (computerChoiceRandomizer > .8) {
+      choiceComputerPlayer = 'rock';
+      show([computerChoiceRock]);
+    } else if (computerChoiceRandomizer > .6) {
+      choiceComputerPlayer = 'paper';
+      show([computerChoicePaper]);
+    } else if (computerChoiceRandomizer > .4) {
+      choiceComputerPlayer = 'lizard';
+      show([computerChoiceLizard]);
+    } else if (computerChoiceRandomizer > .2) {
+      choiceComputerPlayer = 'spock';
+      show([computerChoiceSpock]);
+    } else {
+      choiceComputerPlayer = 'scissors';
+      show([computerChoiceScissors]);
     }
   }
   decideWinner() {
