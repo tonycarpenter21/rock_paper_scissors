@@ -1,52 +1,43 @@
-var game = new Game(gameChoice);
-
-//remove these somehow?
-var gameChoice;
-var choiceHumanPlayer;
-var choiceComputerPlayer;
-
-var changeGameButton = document.getElementById('changeGameButton');
-var howToPlayButton = document.getElementById('howToPlayButton')
-var homeButton = document.getElementById('homeButton');
-var classicGameButton = document.getElementById('classicGameButton');
-var advancedGameButton = document.getElementById('advancedGameButton');
-var startView = document.getElementById('startView');
-var gameView = document.getElementById('gameView');
-var helpView = document.getElementById('helpView')
-var choiceRock = document.getElementById('choiceRock');
-var choicePaper = document.getElementById('choicePaper');
-var choiceScissors = document.getElementById('choiceScissors');
-var humanScore = document.getElementById('humanScore');
-var humanLosses = document.getElementById('humanLosses');
-var humanName = document.getElementById('humanName');
-var humanIcon = document.getElementById('humanIcon');
-var computerScore = document.getElementById('computerScore');
-var computerLosses = document.getElementById('computerLosses');
-var computerName = document.getElementById('computerName');
-var computerIcon = document.getElementById('computerIcon');
-var humanGamesPlayed = document.getElementById('humanGamesPlayed');
-var computerGamesPlayed = document.getElementById('computerGamesPlayed');
-var computerTies = document.getElementById('computerTies');
-var humanTies = document.getElementById('humanTies');
+var game = new Game();
+var buttonChangeGame = document.getElementById('buttonChangeGame');
+var buttonHowToPlay = document.getElementById('buttonHowToPlay');
+var buttonHome = document.getElementById('buttonHome');
+var buttonClassicGame = document.getElementById('buttonClassicGame');
+var buttonAdvancedGame = document.getElementById('buttonAdvancedGame');
+var buttonClearGameHistory = document.getElementById('buttonClearGameHistory');
+var viewStart = document.getElementById('viewStart');
+var viewGame = document.getElementById('viewGame');
+var viewHelp = document.getElementById('viewHelp');
 var gameMessage = document.getElementById('gameMessage');
 var playerChoiceRock = document.getElementById('choiceRock');
 var playerChoicePaper = document.getElementById('choicePaper');
 var playerChoiceScissors = document.getElementById('choiceScissors');
 var playerChoiceLizard = document.getElementById('choiceLizard');
 var playerChoiceSpock = document.getElementById('choiceSpock');
+var humanScore = document.getElementById('humanScore');
+var humanLosses = document.getElementById('humanLosses');
+var humanName = document.getElementById('humanName');
+var humanIcon = document.getElementById('humanIcon');
+var humanGamesPlayed = document.getElementById('humanGamesPlayed');
+var humanTies = document.getElementById('humanTies');
+var computerScore = document.getElementById('computerScore');
+var computerLosses = document.getElementById('computerLosses');
+var computerName = document.getElementById('computerName');
+var computerIcon = document.getElementById('computerIcon');
+var computerGamesPlayed = document.getElementById('computerGamesPlayed');
+var computerTies = document.getElementById('computerTies');
 var computerChoiceRock = document.getElementById('computerChoiceRock');
 var computerChoicePaper = document.getElementById('computerChoicePaper');
 var computerChoiceScissors = document.getElementById('computerChoiceScissors');
 var computerChoiceLizard = document.getElementById('computerChoiceLizard');
 var computerChoiceSpock = document.getElementById('computerChoiceSpock');
-var clearGameHistoryButton = document.getElementById('clearGameHistoryButton');
 
-changeGameButton.addEventListener('click', changeGameStyle);
-howToPlayButton.addEventListener('click', showHowToPlay);
-homeButton.addEventListener('click', changeGameStyle);
-clearGameHistoryButton.addEventListener('click', game.clearGameHistory);
-classicGameButton.addEventListener('click', startClassicGame);
-advancedGameButton.addEventListener('click', startAdvancedGame);
+buttonChangeGame.addEventListener('click', changeGameStyle);
+buttonHowToPlay.addEventListener('click', showHowToPlay);
+buttonHome.addEventListener('click', changeGameStyle);
+buttonClearGameHistory.addEventListener('click', game.clearGameHistory);
+buttonClassicGame.addEventListener('click', startClassicGame);
+buttonAdvancedGame.addEventListener('click', startAdvancedGame);
 choiceRock.addEventListener('click', chooseRock);
 choicePaper.addEventListener('click', choosePaper);
 choiceScissors.addEventListener('click', chooseScissors);
@@ -65,85 +56,85 @@ function playerInfo() {
 }
 
 function showHowToPlay() {
-  hide([gameView, startView, howToPlayButton, changeGameButton])
-  show([helpView])
+  hide([viewGame, viewStart, buttonHowToPlay, buttonChangeGame]);
+  show([viewHelp]);
 }
 
 function changeGameStyle() {
-  hide([gameView, helpView, changeGameButton]);
-  show([startView, howToPlayButton]);
+  hide([viewGame, viewHelp, buttonChangeGame]);
+  show([viewStart, buttonHowToPlay]);
 }
 
 function startClassicGame() {
-  gameChoice = "classic";
+  game.currentGameType = "classic";
   setupNewGame();
 }
 
 function startAdvancedGame() {
-  gameChoice = "advanced";
+  game.currentGameType = "advanced";
   setupNewGame();
 }
 
 function setupNewGame() {
   playerInfo();
-  hide([startView, helpView, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock, playerChoiceLizard, playerChoiceSpock]);
+  hide([viewStart, viewHelp, computerChoiceRock, computerChoicePaper, computerChoiceScissors, computerChoiceLizard, computerChoiceSpock, playerChoiceLizard, playerChoiceSpock]);
   disableHoverGlow([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
+  enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, buttonChangeGame, buttonHowToPlay]);
   enableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  removeButtonGray([changeGameButton, howToPlayButton]);
+  removeButtonGray([buttonChangeGame, buttonHowToPlay]);
   replaceText(gameMessage, "Please pick to play:");
   updateScores();
-  if (gameChoice === "classic") {
-    show([gameView, changeGameButton, howToPlayButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors]);
+  if (game.currentGameType === "classic") {
+    show([viewGame, buttonChangeGame, buttonHowToPlay, playerChoicePaper, playerChoiceRock, playerChoiceScissors]);
   } else {
-    show([gameView, changeGameButton, howToPlayButton, playerChoicePaper, playerChoiceRock, playerChoiceScissors, playerChoiceLizard, playerChoiceSpock]);
+    show([viewGame, buttonChangeGame, buttonHowToPlay, playerChoicePaper, playerChoiceRock, playerChoiceScissors, playerChoiceLizard, playerChoiceSpock]);
   }
 }
 
 function chooseRock() {
-  choiceHumanPlayer = 'rock';
-  enableHoverGlow(playerChoiceRock)
+  humanPlayer.gameChoice = 'rock';
+  enableHoverGlow(playerChoiceRock);
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
   game.startGame();
   game.decideWinner();
 }
 
 function choosePaper() {
-  choiceHumanPlayer = 'paper';
-  enableHoverGlow(playerChoicePaper)
+  humanPlayer.gameChoice = 'paper';
+  enableHoverGlow(playerChoicePaper);
   hide([playerChoiceRock, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
   game.startGame();
   game.decideWinner();
 }
 
 function chooseScissors() {
-  choiceHumanPlayer = 'scissors';
-  enableHoverGlow(playerChoiceScissors)
+  humanPlayer.gameChoice = 'scissors';
+  enableHoverGlow(playerChoiceScissors);
   hide([playerChoicePaper, playerChoiceRock, playerChoiceSpock, playerChoiceLizard]);
   game.startGame();
   game.decideWinner();
 }
 
 function chooseLizard() {
-  choiceHumanPlayer = 'lizard';
-  enableHoverGlow(playerChoiceLizard)
+  humanPlayer.gameChoice = 'lizard';
+  enableHoverGlow(playerChoiceLizard);
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceRock]);
   game.startGame();
   game.decideWinner();
 }
 
 function chooseSpock() {
-  choiceHumanPlayer = 'spock';
-  enableHoverGlow(playerChoiceSpock)
+  humanPlayer.gameChoice = 'spock';
+  enableHoverGlow(playerChoiceSpock);
   hide([playerChoicePaper, playerChoiceScissors, playerChoiceRock, playerChoiceLizard]);
   game.startGame();
   game.decideWinner();
 }
 
 function hideDisableAndRemoveShadows() {
-  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, changeGameButton, howToPlayButton]);
+  disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, buttonChangeGame, buttonHowToPlay]);
   disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
-  turnButtonGray([changeGameButton, howToPlayButton])
+  turnButtonGray([buttonChangeGame, buttonHowToPlay]);
 }
 
 function humanWins() {
