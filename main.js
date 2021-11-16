@@ -46,7 +46,7 @@ playerChoiceSpock.addEventListener('click', humanPlayer.takeTurn);
 
 function pageLoad() {
   if (window.localStorage.getItem('humanPlayer') !== null && window.localStorage.getItem('computerPlayer') !== null) {
-    humanPlayer.saveWinsToStorage();
+    humanPlayer.retrieveWinsFromStorage();
   }
 }
 

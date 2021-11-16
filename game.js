@@ -84,7 +84,7 @@ class Game {
   }
   resetGame() {
     setupNewGame();
-    humanPlayer.retreieveWinsFromStorage();
+    humanPlayer.saveWinsToStorage();
   }
   clearGameHistory(){
     localStorage.clear();
