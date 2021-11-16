@@ -16,64 +16,64 @@ class Game {
   computerPlayerChoosesClassic() {
     var computerChoiceRandomizer = Math.random();
     if (computerChoiceRandomizer > .6666) {
-      computerPlayer.gameChoice = 'rock';
+      computerPlayer.gameChoice = 'choiceRock';
       show([computerChoiceRock]);
     } else if (computerChoiceRandomizer > .3333) {
-      computerPlayer.gameChoice = 'paper';
+      computerPlayer.gameChoice = 'choicePaper';
       show([computerChoicePaper]);
     } else {
-      computerPlayer.gameChoice = 'scissors';
+      computerPlayer.gameChoice = 'choiceScissors';
       show([computerChoiceScissors]);
     }
   }
   computerPlayerChoosesAdvanced() {
     var computerChoiceRandomizer = Math.random();
     if (computerChoiceRandomizer > .8) {
-      computerPlayer.gameChoice = 'rock';
+      computerPlayer.gameChoice = 'choiceRock';
       show([computerChoiceRock]);
     } else if (computerChoiceRandomizer > .6) {
-      computerPlayer.gameChoice = 'paper';
+      computerPlayer.gameChoice = 'choicePaper';
       show([computerChoicePaper]);
     } else if (computerChoiceRandomizer > .4) {
-      computerPlayer.gameChoice = 'lizard';
-      show([computerChoiceLizard]);
+      computerPlayer.gameChoice = 'choiceScissors';
+      show([computerChoiceScissors]);
     } else if (computerChoiceRandomizer > .2) {
-      computerPlayer.gameChoice = 'spock';
+      computerPlayer.gameChoice = 'choiceSpock';
       show([computerChoiceSpock]);
     } else {
-      computerPlayer.gameChoice = 'scissors';
-      show([computerChoiceScissors]);
+      computerPlayer.gameChoice = 'choiceLizard';
+      show([computerChoiceLizard]);
     }
   }
   decideWinner() {
     if (computerPlayer.gameChoice === humanPlayer.gameChoice) {
       replaceText(gameMessage, "It's a draw!");
-    } else if (humanPlayer.gameChoice === 'rock') {
-      if (computerPlayer.gameChoice === 'paper' || computerPlayer.gameChoice === 'spock') {
+    } else if (humanPlayer.gameChoice === 'choiceRock') {
+      if (computerPlayer.gameChoice === 'choicePaper' || computerPlayer.gameChoice === 'choiceSpock') {
         computerWins();
       } else {
         humanWins();
       }
-    } else if (humanPlayer.gameChoice === 'paper') {
-      if (computerPlayer.gameChoice === 'scissors' || computerPlayer.gameChoice === 'lizard') {
+    } else if (humanPlayer.gameChoice === 'choicePaper') {
+      if (computerPlayer.gameChoice === 'choiceScissors' || computerPlayer.gameChoice === 'choiceLizard') {
         computerWins();
       } else {
         humanWins();
       }
-    } else if (humanPlayer.gameChoice === 'scissors') {
-      if (computerPlayer.gameChoice === 'rock' || computerPlayer.gameChoice === 'spock') {
+    } else if (humanPlayer.gameChoice === 'choiceScissors') {
+      if (computerPlayer.gameChoice === 'choiceRock' || computerPlayer.gameChoice === 'choiceSpock') {
         computerWins();
       } else {
         humanWins();
       }
-    } else if (humanPlayer.gameChoice === 'lizard') {
-      if (computerPlayer.gameChoice === 'scissors' || computerPlayer.gameChoice === 'rock') {
+    } else if (humanPlayer.gameChoice === 'choiceLizard') {
+      if (computerPlayer.gameChoice === 'choiceScissors' || computerPlayer.gameChoice === 'choiceRock') {
           computerWins();
       } else {
         humanWins();
       }
-    } else if (humanPlayer.gameChoice === 'spock') {
-      if (computerPlayer.gameChoice === 'paper' || computerPlayer.gameChoice === 'lizard') {
+    } else if (humanPlayer.gameChoice === 'choiceSpock') {
+      if (computerPlayer.gameChoice === 'choicePaper' || computerPlayer.gameChoice === 'choiceLizard') {
           computerWins();
       } else {
         humanWins();
@@ -97,7 +97,6 @@ class Game {
 
 function pageLoad() {
   if (window.localStorage.getItem('humanPlayer') !== null && window.localStorage.getItem('computerPlayer') !== null) {
-    console.log("hey")
     humanPlayer = JSON.parse(window.localStorage.getItem('humanPlayer'));
     computerPlayer = JSON.parse(window.localStorage.getItem('computerPlayer'));
     game.numberOfGamesPlayed = JSON.parse(window.localStorage.getItem('numberOfGamesPlayed'));

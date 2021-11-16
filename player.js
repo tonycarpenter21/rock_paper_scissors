@@ -11,10 +11,12 @@ class Player {
   retrieveWinsFromStorage() {
 
   }
-  takeTurn(){
-
+  takeTurn(event) {
+    humanPlayer.gameChoice = event.target.id;
+    hide([playerChoiceRock, playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard])
+    show([event.target]);
+    enableHoverGlow(event.target)
+    game.startGame();
+    game.decideWinner();
   }
 }
-
-
-// Player methods must include, but are not limited to what is above
