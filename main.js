@@ -38,11 +38,11 @@ buttonHome.addEventListener('click', changeGameStyle);
 buttonClearGameHistory.addEventListener('click', game.clearGameHistory);
 buttonClassicGame.addEventListener('click', startClassicGame);
 buttonAdvancedGame.addEventListener('click', startAdvancedGame);
-choiceRock.addEventListener('click', chooseRock);
-choicePaper.addEventListener('click', choosePaper);
-choiceScissors.addEventListener('click', chooseScissors);
-choiceLizard.addEventListener('click', chooseLizard);
-choiceSpock.addEventListener('click', chooseSpock);
+playerChoiceRock.addEventListener('click', humanPlayer.takeTurn);
+playerChoicePaper.addEventListener('click', humanPlayer.takeTurn);
+playerChoiceScissors.addEventListener('click', humanPlayer.takeTurn);
+playerChoiceLizard.addEventListener('click', humanPlayer.takeTurn);
+playerChoiceSpock.addEventListener('click', humanPlayer.takeTurn);
 
 window.onload = function() {
   pageLoad();
@@ -89,46 +89,6 @@ function setupNewGame() {
   } else {
     show([viewGame, buttonChangeGame, buttonHowToPlay, playerChoicePaper, playerChoiceRock, playerChoiceScissors, playerChoiceLizard, playerChoiceSpock]);
   }
-}
-
-function chooseRock() {
-  humanPlayer.gameChoice = 'rock';
-  enableHoverGlow(playerChoiceRock);
-  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
-  game.startGame();
-  game.decideWinner();
-}
-
-function choosePaper() {
-  humanPlayer.gameChoice = 'paper';
-  enableHoverGlow(playerChoicePaper);
-  hide([playerChoiceRock, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
-  game.startGame();
-  game.decideWinner();
-}
-
-function chooseScissors() {
-  humanPlayer.gameChoice = 'scissors';
-  enableHoverGlow(playerChoiceScissors);
-  hide([playerChoicePaper, playerChoiceRock, playerChoiceSpock, playerChoiceLizard]);
-  game.startGame();
-  game.decideWinner();
-}
-
-function chooseLizard() {
-  humanPlayer.gameChoice = 'lizard';
-  enableHoverGlow(playerChoiceLizard);
-  hide([playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceRock]);
-  game.startGame();
-  game.decideWinner();
-}
-
-function chooseSpock() {
-  humanPlayer.gameChoice = 'spock';
-  enableHoverGlow(playerChoiceSpock);
-  hide([playerChoicePaper, playerChoiceScissors, playerChoiceRock, playerChoiceLizard]);
-  game.startGame();
-  game.decideWinner();
 }
 
 function hideDisableAndRemoveShadows() {
