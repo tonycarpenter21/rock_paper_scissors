@@ -44,9 +44,13 @@ playerChoiceScissors.addEventListener('click', humanPlayer.takeTurn);
 playerChoiceLizard.addEventListener('click', humanPlayer.takeTurn);
 playerChoiceSpock.addEventListener('click', humanPlayer.takeTurn);
 
-window.onload = function() {
-  pageLoad();
-};
+function pageLoad() {
+  if (window.localStorage.getItem('humanPlayer') !== null && window.localStorage.getItem('computerPlayer') !== null) {
+    humanPlayer.saveWinsToStorage();
+  }
+}
+
+window.onload = pageLoad();
 
 function playerInfo() {
   replaceText(humanName, humanPlayer.name);
@@ -66,12 +70,12 @@ function changeGameStyle() {
 }
 
 function startClassicGame() {
-  game.currentGameType = "classic";
+  game.currentGameType = 'classic';
   setupNewGame();
 }
 
 function startAdvancedGame() {
-  game.currentGameType = "advanced";
+  game.currentGameType = 'advanced';
   setupNewGame();
 }
 
@@ -82,16 +86,19 @@ function setupNewGame() {
   enablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, buttonChangeGame, buttonHowToPlay]);
   enableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
   removeButtonGray([buttonChangeGame, buttonHowToPlay]);
-  replaceText(gameMessage, "Please pick to play:");
+  replaceText(gameMessage, 'Please pick to play:');
   updateScores();
-  if (game.currentGameType === "classic") {
+  if (game.currentGameType === 'classic') {
     show([viewGame, buttonChangeGame, buttonHowToPlay, playerChoicePaper, playerChoiceRock, playerChoiceScissors]);
   } else {
     show([viewGame, buttonChangeGame, buttonHowToPlay, playerChoicePaper, playerChoiceRock, playerChoiceScissors, playerChoiceLizard, playerChoiceSpock]);
   }
 }
 
-function hideDisableAndRemoveShadows() {
+function takeTurnHideShowAndGlow(event) {
+  hide([playerChoiceRock, playerChoicePaper, playerChoiceScissors, playerChoiceSpock, playerChoiceLizard]);
+  show([event.target]);
+  enableHoverGlow(event.target);
   disablePlayerButtons([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock, buttonChangeGame, buttonHowToPlay]);
   disableShadows([playerChoiceRock, playerChoiceScissors, playerChoicePaper, playerChoiceLizard, playerChoiceSpock]);
   turnButtonGray([buttonChangeGame, buttonHowToPlay]);
@@ -99,12 +106,12 @@ function hideDisableAndRemoveShadows() {
 
 function humanWins() {
   humanPlayer.wins += 1;
-  replaceText(gameMessage, "You won!");
+  replaceText(gameMessage, 'You won!');
 }
 
 function computerWins() {
   computerPlayer.wins += 1;
-  replaceText(gameMessage, "You lost!");
+  replaceText(gameMessage, 'You lost!');
 }
 
 function updateScores() {
