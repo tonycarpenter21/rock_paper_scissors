@@ -12,6 +12,8 @@
 ## Instructions for Starting and Using the Application:
 **Launch The Application**
 1. Navigate to the website deploy link.
+![Home Screen](https://github.com/[username]/[reponame]/blob/[branch]/home_screen.jpeg?raw=true)
+
 
 **Play A Classic Game**
 1. To play a classic game, click the "Classic Game" button on the home screen.
@@ -22,6 +24,7 @@
 - Scissors beats Paper
 4. Once clicked, the computer will automatically choose and the outcome will be displayed on the screen (the user's choice is green while the computer's choice is gray). After a short time delay, the game will automatically reset and you can play again!
 5. To return home or change the game type, click the "Change Game" button on the upper right of the navigation bar.
+[Contribution guidelines for this project](images/home_screen.jpeg)
 
 **Play An Advanced Game**
 1. To play an advanced game, click the "Advanced Game" button on the home screen.

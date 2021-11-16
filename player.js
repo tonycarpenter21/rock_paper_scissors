@@ -11,8 +11,8 @@ class Player {
     window.localStorage.setItem('numberOfGamesPlayed', JSON.stringify(game.numberOfGamesPlayed));
   }
   retrieveWinsFromStorage() {
-    humanPlayer = JSON.parse(window.localStorage.getItem('humanPlayer'));
-    computerPlayer = JSON.parse(window.localStorage.getItem('computerPlayer'));
+    humanPlayer.wins = JSON.parse(window.localStorage.getItem('humanPlayer')).wins;
+    computerPlayer.wins = JSON.parse(window.localStorage.getItem('computerPlayer')).wins;
     game.numberOfGamesPlayed = JSON.parse(window.localStorage.getItem('numberOfGamesPlayed'));
   }
   takeTurn(event) {
