@@ -1,3 +1,6 @@
+var humanPlayer = new Player ('Human', '🤓');
+var computerPlayer = new Player ('Computer', '🤖');
+
 class Game {
   constructor() {
     this.numberOfGamesPlayed = 0;
@@ -5,7 +8,6 @@ class Game {
   }
   startGame() {
     game.numberOfGamesPlayed += 1;
-    hideDisableAndRemoveShadows();
     setTimeout(game.resetGame, 1500);
     if (game.currentGameType === 'classic') {
       game.computerPlayerChoosesClassic();
@@ -47,7 +49,7 @@ class Game {
   }
   decideWinner() {
     if (computerPlayer.gameChoice === humanPlayer.gameChoice) {
-      replaceText(gameMessage, "It's a draw!");
+      replaceText(gameMessage, 'It\'s a draw!');
     } else if (humanPlayer.gameChoice === 'choiceRock') {
       if (computerPlayer.gameChoice === 'choicePaper' || computerPlayer.gameChoice === 'choiceSpock') {
         computerWins();
@@ -68,13 +70,13 @@ class Game {
       }
     } else if (humanPlayer.gameChoice === 'choiceLizard') {
       if (computerPlayer.gameChoice === 'choiceScissors' || computerPlayer.gameChoice === 'choiceRock') {
-          computerWins();
+        computerWins();
       } else {
         humanWins();
       }
     } else if (humanPlayer.gameChoice === 'choiceSpock') {
       if (computerPlayer.gameChoice === 'choicePaper' || computerPlayer.gameChoice === 'choiceLizard') {
-          computerWins();
+        computerWins();
       } else {
         humanWins();
       }
@@ -82,26 +84,13 @@ class Game {
   }
   resetGame() {
     setupNewGame();
-    window.localStorage.setItem('humanPlayer', JSON.stringify(humanPlayer));
-    window.localStorage.setItem('computerPlayer', JSON.stringify(computerPlayer));
-    window.localStorage.setItem('numberOfGamesPlayed', JSON.stringify(game.numberOfGamesPlayed));
+    humanPlayer.retreieveWinsFromStorage();
   }
   clearGameHistory(){
     localStorage.clear();
-    humanPlayer.wins = 0
-    computerPlayer.wins = 0
-    game.numberOfGamesPlayed = 0
-    updateScores()
+    humanPlayer.wins = 0;
+    computerPlayer.wins = 0;
+    game.numberOfGamesPlayed = 0;
+    updateScores();
   }
 }
-
-function pageLoad() {
-  if (window.localStorage.getItem('humanPlayer') !== null && window.localStorage.getItem('computerPlayer') !== null) {
-    humanPlayer = JSON.parse(window.localStorage.getItem('humanPlayer'));
-    computerPlayer = JSON.parse(window.localStorage.getItem('computerPlayer'));
-    game.numberOfGamesPlayed = JSON.parse(window.localStorage.getItem('numberOfGamesPlayed'));
-  }
-}
-
-var humanPlayer = new Player ('Human', '🤓');
-var computerPlayer = new Player ('Computer', '🤖');
