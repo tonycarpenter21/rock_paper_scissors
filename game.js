@@ -1,13 +1,13 @@
 class Game {
-  constructor(gameChoice) {
+  constructor() {
     this.numberOfGamesPlayed = 0;
-    this.currentGameType = gameChoice;
+    this.currentGameType = 'classic';
   }
   startGame() {
     game.numberOfGamesPlayed += 1;
     hideDisableAndRemoveShadows();
     setTimeout(game.resetGame, 1500);
-    if (gameChoice === 'classic') {
+    if (game.currentGameType === 'classic') {
       game.computerPlayerChoosesClassic();
     } else {
       game.computerPlayerChoosesAdvanced();
@@ -16,64 +16,64 @@ class Game {
   computerPlayerChoosesClassic() {
     var computerChoiceRandomizer = Math.random();
     if (computerChoiceRandomizer > .6666) {
-      choiceComputerPlayer = 'rock';
+      computerPlayer.gameChoice = 'rock';
       show([computerChoiceRock]);
     } else if (computerChoiceRandomizer > .3333) {
-      choiceComputerPlayer = 'paper';
+      computerPlayer.gameChoice = 'paper';
       show([computerChoicePaper]);
     } else {
-      choiceComputerPlayer = 'scissors';
+      computerPlayer.gameChoice = 'scissors';
       show([computerChoiceScissors]);
     }
   }
   computerPlayerChoosesAdvanced() {
     var computerChoiceRandomizer = Math.random();
     if (computerChoiceRandomizer > .8) {
-      choiceComputerPlayer = 'rock';
+      computerPlayer.gameChoice = 'rock';
       show([computerChoiceRock]);
     } else if (computerChoiceRandomizer > .6) {
-      choiceComputerPlayer = 'paper';
+      computerPlayer.gameChoice = 'paper';
       show([computerChoicePaper]);
     } else if (computerChoiceRandomizer > .4) {
-      choiceComputerPlayer = 'lizard';
+      computerPlayer.gameChoice = 'lizard';
       show([computerChoiceLizard]);
     } else if (computerChoiceRandomizer > .2) {
-      choiceComputerPlayer = 'spock';
+      computerPlayer.gameChoice = 'spock';
       show([computerChoiceSpock]);
     } else {
-      choiceComputerPlayer = 'scissors';
+      computerPlayer.gameChoice = 'scissors';
       show([computerChoiceScissors]);
     }
   }
   decideWinner() {
-    if (choiceComputerPlayer === choiceHumanPlayer) {
+    if (computerPlayer.gameChoice === humanPlayer.gameChoice) {
       replaceText(gameMessage, "It's a draw!");
-    } else if (choiceHumanPlayer === 'rock') {
-      if (choiceComputerPlayer === 'paper' || choiceComputerPlayer === 'spock') {
+    } else if (humanPlayer.gameChoice === 'rock') {
+      if (computerPlayer.gameChoice === 'paper' || computerPlayer.gameChoice === 'spock') {
         computerWins();
       } else {
         humanWins();
       }
-    } else if (choiceHumanPlayer === 'paper') {
-      if (choiceComputerPlayer === 'scissors' || choiceComputerPlayer === 'lizard') {
+    } else if (humanPlayer.gameChoice === 'paper') {
+      if (computerPlayer.gameChoice === 'scissors' || computerPlayer.gameChoice === 'lizard') {
         computerWins();
       } else {
         humanWins();
       }
-    } else if (choiceHumanPlayer === 'scissors') {
-      if (choiceComputerPlayer === 'rock' || choiceComputerPlayer === 'spock') {
+    } else if (humanPlayer.gameChoice === 'scissors') {
+      if (computerPlayer.gameChoice === 'rock' || computerPlayer.gameChoice === 'spock') {
         computerWins();
       } else {
         humanWins();
       }
-    } else if (choiceHumanPlayer === 'lizard') {
-      if (choiceComputerPlayer === 'scissors' || choiceComputerPlayer === 'rock') {
+    } else if (humanPlayer.gameChoice === 'lizard') {
+      if (computerPlayer.gameChoice === 'scissors' || computerPlayer.gameChoice === 'rock') {
           computerWins();
       } else {
         humanWins();
       }
-    } else if (choiceHumanPlayer === 'spock') {
-      if (choiceComputerPlayer === 'paper' || choiceComputerPlayer === 'lizard') {
+    } else if (humanPlayer.gameChoice === 'spock') {
+      if (computerPlayer.gameChoice === 'paper' || computerPlayer.gameChoice === 'lizard') {
           computerWins();
       } else {
         humanWins();
