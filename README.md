@@ -11,7 +11,7 @@
 
 ## Instructions for Starting and Using the Application:
 **Launch The Application**
-1. Navigate to the website deploy link.
+1. Navigate to the website deploy link here: https://tonycarpenter21.github.io/rock_paper_scissors/
 ![Home Screen](https://user-images.githubusercontent.com/88450229/142083118-e2c0389a-a916-427c-8212-828ad0f5b09d.jpeg)
 
 **Play A Classic Game**
